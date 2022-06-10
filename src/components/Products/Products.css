@@ -1,0 +1,8 @@
+.no_products{
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    padding: 25px;
+    font-style: italic;
+    opacity: .5;
+}

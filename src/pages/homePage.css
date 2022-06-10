@@ -1,0 +1,122 @@
+.container{
+    display: flex;
+}
+.sidebar_container{
+    width: 10vw;
+    margin-right: 15px;
+    background-color: var(--primary_color);
+    border-radius: 10px;
+    padding: 40px 30px;
+    box-shadow: 0 0 5px #d5d5d5;
+}
+.sidebar_container ul{
+    display: grid;
+    gap: 10px;
+    color: var(--brand_color);
+    font-weight: 500;
+    margin-top: 30px;
+}
+.sidebar_container ul li{
+    cursor: pointer;
+}
+.sidebar_container ul li.active{
+    font-weight: 700;
+    transform: translateX(10px);
+}
+.sidebar_container ul li.active::before{
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 3px;
+    background-color: var(--brand_color);
+    border-radius: 15px;
+    top: 50%;
+    left: -15px;
+    transform: translateX(-50%);
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 60px;
+    color: var(--brand_color);
+}
+.homepage_container {
+    min-width: 85vw;
+    height: 90vh;
+    margin: auto;
+    min-height: 100%;
+    background-color: var(--primary_color);
+    border-radius: 10px;
+    padding: 40px 30px;
+    box-shadow: 0 0 5px #d5d5d5;
+}
+
+.top_holder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table_container {
+    width: 100%;
+    padding-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    padding-top: 25px;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+table .btn{
+    /* padding: 0; */
+}
+
+td button{
+    width: 50px;
+    height: 30px;
+}
+.overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: .5;
+}
+
+.logout_btn, .cart_btn{
+    font-size: 20px;
+    padding: 0 10px;
+}
+.cart_btn{
+    position: relative;
+}
+.cart_btn .count{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: var(--primary_color);
+    background: var(--seconday_color);
+    border-radius: 50%;
+    font-size: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--primary_color);
+}
+.add_product_btn{
+    display: flex;
+    margin-left: auto;
+}
