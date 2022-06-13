@@ -1,15 +1,17 @@
-// const initalState = [
-//     {
-//         "userID": 0,
-//         "orders": {
-//             "product_id": "PDl4843qyx",
-//             "product_name": "Nvidia Graphics Card RTX 3050",
-//             "product_price": 31500,
-//             "product_quantity": 5
-//         }
-//     }
-// ]
-const initalState = []
+const initalState = [
+    {
+        "userID": 0,
+        "orders": {
+            "product_id": "PDl4843qyx",
+            "product_name": "Nvidia Graphics Card RTX 3050",
+            "product_price": 31500,
+            "product_quantity": 5
+        },
+        "order_id": "ODl4bokpfx"
+    }
+]
+
+// const initalState = []
 
 const order = (state = initalState, action) => {
 
@@ -20,7 +22,7 @@ const order = (state = initalState, action) => {
                 order_id: "OD" + (new Date().getTime()).toString(36)
             }
             state.push(newOrder)
-            console.log("orderState", state);
+            // console.log("orderState", state);
             return state
 
         case "DELETE_ORDER":

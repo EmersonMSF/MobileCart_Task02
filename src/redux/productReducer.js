@@ -26,9 +26,12 @@ const product = (state = initalState, action) => {
         case "DELETE_PRODUCT":
             console.log("delete product reducer");
             console.log(state.filter(item => item.product_id !== action.payload));
-            return Object.assign({}, state, state.map(item => {
-                return item.product_id !== action.payload
-            }))
+            // return Object.assign({}, state, state.map(item => {
+            //     return item.product_id !== action.payload
+            // }))
+            //return state.filter((item) => item.order_id !== action.payload)
+            return state.filter((item) => item.product_id !== action.payload)
+
 
 
         case "DECREASE_PRODUCT_QUANTITY_BY_ORDERS":

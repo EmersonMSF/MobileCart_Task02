@@ -35,3 +35,19 @@ export const deleteOrderData = (id) => {
         payload: id
     }
 }
+
+export const getUserData = () => {
+    // console.log("id" + id);
+    return {
+        type: "GET_USER_DATA",
+    }
+}
+
+
+export const storeOrderDataInUserData = (payload) => {
+    // console.log("id" + id);
+    return {
+        type: "STORE_ORDER_IN_USERDATA",
+        payload: payload
+    }
+}

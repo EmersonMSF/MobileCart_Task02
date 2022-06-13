@@ -5,6 +5,7 @@ import DeleteProduct from "../DeleteProduct/DeleteProduct"
 import "./Products.css"
 import { storeProductData, deleteProductData } from "../../redux/Actions"
 import { connect } from "react-redux"
+import Menu from "../Menu/Menu"
 
 function Products(props) {
 
@@ -38,6 +39,8 @@ function Products(props) {
 
     return (
         <>
+            <Menu title="Products" />
+
             <button className="btn btn1 add_product_btn" onClick={openProductFormHandler}>Add Products</button>
             <table className="table_container">
                 <tbody>

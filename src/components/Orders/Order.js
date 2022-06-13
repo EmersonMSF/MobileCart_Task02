@@ -2,23 +2,19 @@ import "./order.css"
 import { connect } from "react-redux"
 import order from "../../redux/orderReducer"
 import { deleteOrderData } from "../../redux/Actions";
+import Menu from "../Menu/Menu";
 
 function Order(props) {
 
-    console.log("props.ordersDataProp", props.ordersDataProp);
-
+    // console.log("props.ordersDataProp", props.ordersDataProp);
     const currentOrderData = props.ordersDataProp
-
-
     const placeOrderHandler = (order_id) => {
-
-        console.log("order_id", order_id);
-
         props.deleteOrder(order_id)
-
     }
 
     return <div>
+        <Menu title="Orders" />
+
         <table className="table_container">
             <tbody>
                 <tr>
@@ -50,34 +46,12 @@ function Order(props) {
                     })
                 }
 
-
-                {/* {
-                    productsData.length > 0 && productsData?.map((item, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{item.product_id}</td>
-                                <td>{item.product_name}</td>
-                                <td>{item.product_type}</td>
-                                <td>{item.product_price}</td>
-                                <td>{item.product_quantity}</td>
-                                <td>
-                                    <button className="btn btn1 w-120 pad-0"
-                                        onClick={() => openDeleteProductHandler(item.product_id)}>Delete <i className="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button className="btn btn1 w-120 pad-0"
-                                        onClick={() => openAddToCartHandler(item.product_id)} > Add to Cart <i className="fa-solid fa-cart-plus"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        )
-                    })
-                } */}
             </tbody>
 
         </table>
+
+        {currentOrderData.length > 0 ? null : <span className="no_products">No orders yet</span>}
+
     </div >
 }
 

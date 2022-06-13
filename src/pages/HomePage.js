@@ -10,14 +10,15 @@ import { storeProductData } from "../redux/Actions";
 import Order from "../components/Orders/Order";
 import { connect } from "react-redux";
 import order from "../redux/orderReducer";
+import Menu from "../components/Menu/Menu";
+import Home from "../components/Home/Home";
 
 function HomePage(props) {
 
   let JSON_DATAJSON_DATA = JSON.parse(localStorage["users"]);
 
   const location = useLocation();
-  const [isLogoutFormOpen, setlogoutFormOpen] = useState(false);
-  const [menu, setMenu] = useState("products")
+  const [menu, setMenu] = useState("home")
 
 
   return (
@@ -29,53 +30,17 @@ function HomePage(props) {
         </span>
 
         <ul>
-          {/* <li >Home</li> */}
+          <li onClick={() => setMenu("home")} className={menu === "home" ? "active" : null}>Home</li>
           <li onClick={() => setMenu("products")} className={menu === "products" ? "active" : null}>Products</li>
           <li onClick={() => setMenu("cart")} className={menu === "cart" ? "active" : null}>Cart</li>
         </ul>
       </div>
 
       <div className="homepage_container">
-        <div className="top_holder">
-          <p className="heading">
-            Welcome, <b>{location.state.name} </b>
-          </p>
 
-          <span>
-            <button className="btn btn2 cart_btn" >
-              <i className="fa-solid fa-cart-shopping"></i>
-              <span className="count">{props.ordersDataProp.length}</span>
-            </button>
-
-            <button className="btn btn2 logout_btn"
-              onClick={() => {
-                setlogoutFormOpen(true);
-              }} >
-
-              <i className="fa-solid fa-power-off"></i>
-            </button>
-
-          </span>
-        </div>
-
-        {menu == "products" ? <Products /> : null}
-        {menu == "cart" ? <Order /> : null}
-
-
-        {
-          isLogoutFormOpen
-            ?
-            <>
-              <div
-                className="overlay"
-                onClick={() => {
-                  setlogoutFormOpen(false);
-                }}
-              ></div>
-              <Logout setlogoutFormOpen={setlogoutFormOpen} />
-            </>
-            : null
-        }
+        {menu === "home" ? <Home /> : null}
+        {menu === "products" ? <Products /> : null}
+        {menu === "cart" ? <Order /> : null}
 
       </div>
     </div >

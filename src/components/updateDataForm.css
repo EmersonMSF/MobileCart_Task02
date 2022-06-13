@@ -4,6 +4,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     min-height: auto;
-    zoom: 90% !important;
+    /* zoom: 90% !important; */
     z-index: 999;
 }

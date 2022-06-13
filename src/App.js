@@ -1,10 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import ErrorModalBox from "./components/ErrorModalBox";
 import CreateAccount from "./pages/CreateAccount";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import UpdateDataForm from "./components/UpdateDataForm";
 
 function App() {
   return (
