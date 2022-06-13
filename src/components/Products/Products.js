@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AddProductForm from "../AddProductForm/AddProductForm"
 import AddToCart from "../AddToCart/AddToCart"
 import DeleteProduct from "../DeleteProduct/DeleteProduct"
@@ -9,13 +9,21 @@ import Menu from "../Menu/Menu"
 
 function Products(props) {
 
-    const productsData = props.productsDataProp
+    const [currentProductData, setCurrentProductData] = useState()
+
+    // const productsData = props.productsDataProp
+
+
 
     const [isAddToCartOpen, setAddToCardOpen] = useState(false)
     const [isDeleteProductOpen, setDeleteProductOpen] = useState(false)
     const [isAddProductFormOpen, setAddProductFormOpen] = useState(false);
 
     const [selectedProductID, setSelectedProductID] = useState(null)
+
+
+    useEffect(() => { setCurrentProductData(props.productsDataProp) }, [props.productsDataProp])
+
 
     const openProductFormHandler = () => {
         setAddProductFormOpen(true)
@@ -37,6 +45,40 @@ function Products(props) {
         setAddToCardOpen(false)
     }
 
+
+
+    const deleteProductByID = () => {
+        // selectedProductID 
+
+
+        const trimmedProductData = currentProductData.filter((item) => item.product_id !== selectedProductID)
+        props.storeProduct(trimmedProductData)
+
+        console.log("props.productsDataProp", trimmedProductData);
+        console.log("props.productsDataProp", props.productsDataProp);
+
+    }
+
+    const addProductByData = data => {
+
+        // const currentProductData = props.productsDataProp
+        console.log("props.productsDataProp", props.productsDataProp);
+
+        console.log("currentProductData", currentProductData);
+        currentProductData.push({
+            ...data,
+            product_id: "PD" + (new Date().getTime()).toString(36)
+        })
+        console.log("props.productsDataProp", props.productsDataProp);
+    }
+
+    {
+        console.log("props.productsDataProp data", props.productsDataProp);
+
+        console.log("currentProductData data", currentProductData);
+
+    }
+
     return (
         <>
             <Menu title="Products" />
@@ -56,7 +98,7 @@ function Products(props) {
                     </tr>
 
                     {
-                        productsData.length > 0 && productsData?.map((item, index) => {
+                        currentProductData?.length > 0 && currentProductData?.map((item, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
@@ -86,7 +128,7 @@ function Products(props) {
                 isAddToCartOpen
                     ? <>
                         <div className="overlay" onClick={closeAllPopups}></div>
-                        <AddToCart product_id={selectedProductID} />
+                        <AddToCart product_id={selectedProductID} closePopupFunc={closeAllPopups} ShowToastMessage={props.ShowToastMessage} />
                     </>
                     : null
             }
@@ -95,7 +137,8 @@ function Products(props) {
                 isDeleteProductOpen
                     ? <>
                         <div className="overlay" onClick={closeAllPopups}></div>
-                        <DeleteProduct product_id={selectedProductID} deleteProductFunc={props.deleteProduct} closePopupFunc={closeAllPopups} />
+                        {/* <DeleteProduct product_id={selectedProductID} deleteProductFunc={props.deleteProduct} closePopupFunc={closeAllPopups} ShowToastMessage={props.ShowToastMessage} /> */}
+                        <DeleteProduct deleteFunc={deleteProductByID} closePopupFunc={closeAllPopups} ShowToastMessage={props.ShowToastMessage} />
                     </>
                     : null
             }
@@ -104,19 +147,19 @@ function Products(props) {
                 isAddProductFormOpen
                     ? <>
                         <div className="overlay" onClick={closeAllPopups}></div>
-                        <AddProductForm payloadData={props.storeProduct} />
+                        <AddProductForm addProductByDataFunc={addProductByData} closePopupFunc={closeAllPopups} ShowToastMessage={props.ShowToastMessage} />
                     </>
                     : null
             }
 
-            {productsData.length > 0 ? null : <span className="no_products">No products found</span>}
+            {currentProductData?.length > 0 ? null : <span className="no_products">No products found</span>}
         </>
     )
 }
 
 
 const mapStateToProps = (state) => {
-    // console.log('crash here', state);
+    console.log('state here', state.product);
     return {
         productsDataProp: state.product
     }
@@ -125,7 +168,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
         storeProduct: (data) => dispatch(storeProductData(data)),
-        deleteProduct: (id) => dispatch(deleteProductData(id))
+        // deleteProduct: (id) => dispatch(deleteProductData(id))
     };
 };
 

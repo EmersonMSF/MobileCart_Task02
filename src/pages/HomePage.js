@@ -6,20 +6,40 @@ import UpdateDataForm from "../components/UpdateDataForm";
 import AddProductForm from "../components/AddProductForm/AddProductForm";
 import Products from "../components/Products/Products";
 
-import { storeProductData } from "../redux/Actions";
+import { orderProductData } from "../redux/Actions";
 import Order from "../components/Orders/Order";
 import { connect } from "react-redux";
 import order from "../redux/orderReducer";
 import Menu from "../components/Menu/Menu";
 import Home from "../components/Home/Home";
+import { ToastMessage } from "../components/ToastMessage/ToastMessage";
 
 function HomePage(props) {
 
-  let JSON_DATAJSON_DATA = JSON.parse(localStorage["users"]);
-
   const location = useLocation();
-  const [menu, setMenu] = useState("home")
+  const [menu, setMenu] = useState("products")
 
+  const [toastMessage, setToastMessage] = useState({
+    active: false,
+    message: null,
+  });
+
+  function ShowToastMessage(messageContent) {
+    let errorMessageInterval = setInterval(() => {
+      setToastMessage({
+        ...toastMessage,
+        active: false,
+      });
+
+      clearInterval(errorMessageInterval);
+    }, 3000);
+
+    setToastMessage({
+      active: true,
+      message: messageContent,
+    });
+
+  }
 
   return (
     <div className="container">
@@ -39,10 +59,17 @@ function HomePage(props) {
       <div className="homepage_container">
 
         {menu === "home" ? <Home /> : null}
-        {menu === "products" ? <Products /> : null}
-        {menu === "cart" ? <Order /> : null}
+        {menu === "products" ? <Products ShowToastMessage={ShowToastMessage} /> : null}
+        {menu === "cart" ? <Order ShowToastMessage={ShowToastMessage} /> : null}
 
       </div>
+
+
+
+      <ToastMessage
+        message={toastMessage.message}
+        activeStatus={toastMessage.active}
+      />
     </div >
   );
 }
@@ -53,10 +80,10 @@ const mapStateToProps = state => {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//     return {
+const mapDispatchToProps = dispatch => {
+  return {
+    storeOrder: (data) => dispatch(orderProductData(data)),
+  }
+}
 
-//     }
-// }
-
-export default connect(mapStateToProps, null)(HomePage)
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

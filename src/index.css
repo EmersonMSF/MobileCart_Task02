@@ -79,13 +79,7 @@ ul{
 .w-120{
   width: 120px;
 }
-.form_error_message{
-  display: none;
-  padding: 10px 0;
-  color: red;
-  font-weight: 600;
-  font-size: 12px;
-}
+
 
 code{
   font-family: auto;

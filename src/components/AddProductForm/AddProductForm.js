@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { ToastMessage } from "../ToastMessage/ToastMessage";
 import "./AddProductForm.css"
+import { connect } from "react-redux"
+import { addToastMessage } from "../../redux/Actions";
+
 
 export default function AddProductForm(props) {
 
@@ -7,10 +11,43 @@ export default function AddProductForm(props) {
 
     const [productDetails, setProductDetails] = useState({
         product_name: null,
-        product_type: null,
+        product_type: productTypes[0],
         product_price: null,
         product_quantity: null
     })
+
+    const addProductHandler = () => {
+
+        if (productDetails.product_name == null || productDetails.product_name == "") {
+            // console.log('product name is empty');
+            console.log('product name is empty');
+            props.ShowToastMessage("Product name is empty")
+            return
+        }
+        else if (productDetails.product_type == null || productDetails.product_type == "") {
+            console.log('product type is empty');
+            props.ShowToastMessage("Product type is empty")
+            return
+        }
+        else if (productDetails.product_price == null || productDetails.product_price == "") {
+            console.log('product price is empty');
+            props.ShowToastMessage("Product price is empty")
+            return
+        }
+        else if (productDetails.product_quantity == null || productDetails.product_quantity == "") {
+            console.log('product quantity is empty');
+            props.ShowToastMessage("Product quantity is empty")
+            return
+        }
+
+
+        props.addProductByDataFunc(productDetails)
+
+        props.closePopupFunc()
+        props.ShowToastMessage("Product added Successfully")
+
+
+    }
 
     return (
         <div className="login_container registration_container updateform_container">
@@ -56,7 +93,7 @@ export default function AddProductForm(props) {
             </span>
 
             <span className="input_elements_holder">
-                <label htmlFor="noOfProductAvailability">No. of items</label>
+                <label htmlFor="noOfProductAvailability">Product quantity</label>
                 <input
                     id="noOfProductAvailability"
                     type="number"
@@ -65,9 +102,24 @@ export default function AddProductForm(props) {
                 />
             </span>
 
-            <button className="btn btn1 add_btn" onClick={() => props.payloadData(productDetails)}>Add</button>
-
+            <button className="btn btn1 add_btn" onClick={addProductHandler}>Add</button>
 
         </div>
     )
 }
+
+// const mapStateToProps = (state) => {
+//     // console.log('crash here', state);
+//     return {
+//         toastDataProp: state.toast,
+//     }
+// }
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         addToast: (id) => dispatch(addToastMessage(id))
+//     };
+// };
+
+
+// export default connect(mapStateToProps, mapDispatchToProps)(AddProductForm);

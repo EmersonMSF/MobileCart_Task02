@@ -4,8 +4,10 @@ export default function DeleteProduct(props) {
 
 
     const confirmBtnHandler = () => {
-        props.deleteProductFunc(props.product_id)
+        // props.deleteProductFunc(props.product_id)
+        props.deleteFunc()
         props.closePopupFunc()
+        props.ShowToastMessage("Product deleted successfully")
     }
 
 

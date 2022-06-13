@@ -89,10 +89,10 @@ function LoginPage() {
             JSON_DATA.filter((item) => {
               if (item.userDetails.email === loginDetails.username) {
                 console.log(true);
-
                 item.userDetails.password === loginDetails.password
                   ? navigate("home", {
                     state: {
+                      id: item.userDetails.id,
                       name: item.userDetails.username,
                       role: item.userDetails.role,
                     },

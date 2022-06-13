@@ -39,3 +39,17 @@
     font-weight: 500;
     cursor: pointer;
 }
+.form_error_message{
+    display: none;
+    align-self: flex-end;
+    transition: all 2s ease;
+    padding: 10px 0 0;
+    color: red;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+.form_error_message.active{
+display: flex;
+transition: all 2s ease;
+}

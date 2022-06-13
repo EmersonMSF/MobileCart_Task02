@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 function Home(props) {
     const roleList = ["admin", "user"];
     // let JSON_DATA = JSON.parse(localStorage["users"]);
-    console.log("usersDataProp", props.usersDataProp);
+    // console.log("usersDataProp", props.usersDataProp);
     let JSON_DATA = props.usersDataProp
 
     const location = useLocation();
@@ -26,8 +26,6 @@ function Home(props) {
             if (item.userDetails.id === id) return item;
         });
     }
-
-
 
     const [tableData, setTableData] = useState(JSON_DATA);
 
@@ -49,7 +47,7 @@ function Home(props) {
     };
     return <div>
         {/* <Menu title="Welcome, <b>`{location.state.name}` </b>" /> */}
-        <Menu title="Home" />
+        <Menu title={"Welcome, " + location.state.name} />
 
         <div className="filter_container">
             <input placeholder="Search by Name" type="text" ref={filterName} />
@@ -144,7 +142,6 @@ function Home(props) {
 
 
 const mapStateToProps = state => {
-    console.log('crash calling ra', state);
     return {
         usersDataProp: state.user
     }
