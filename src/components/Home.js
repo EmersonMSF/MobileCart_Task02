@@ -7,8 +7,6 @@ import { getActiveUserDetails, getActiveUserProductDetails } from "./HelperFunct
 
 function Home(props) {
     const roleList = ["admin", "user"];
-    // let JSON_DATA = JSON.parse(localStorage["users"]);
-    // console.log("usersDataProp", props.usersDataProp);
     let JSON_DATA = props.usersDataProp
 
 

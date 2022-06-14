@@ -15,7 +15,7 @@ import { ToastMessage } from "../components/ToastMessage";
 function HomePage(props) {
 
   const location = useLocation();
-  const [menu, setMenu] = useState("products")
+  const [menu, setMenu] = useState("home")
 
   const [toastMessage, setToastMessage] = useState({
     active: false,

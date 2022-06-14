@@ -16,7 +16,6 @@ import { getActiveUserProductDetails } from "../components/HelperFunction";
 
 const initalState = getActiveUserProductDetails()
 
-
 const product = (state = initalState, action) => {
     switch (action.type) {
         // case "ADD_PRODUCT":

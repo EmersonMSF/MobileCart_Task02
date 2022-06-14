@@ -1,8 +1,7 @@
 import { connect } from "react-redux"
 import { orderProductData, storeProductData } from "../redux/Actions"
 import { useRef, useState } from "react"
-const ACTIVE_UID = localStorage.activeUser
-
+import { getLocalStorageData, getActiveUserID } from "./HelperFunction"
 
 function AddToCart(props) {
 
@@ -11,8 +10,8 @@ function AddToCart(props) {
         if (item.product_id == props.product_id) { return item }
     })[0]
 
-    const ACTIVE_UID = localStorage.activeUser
-    const JSON_DATA = JSON.parse(localStorage.users)
+    const ACTIVE_UID = getActiveUserID()
+    const JSON_DATA = getLocalStorageData()
 
 
     const product_quantity = useRef(0)
@@ -34,7 +33,6 @@ function AddToCart(props) {
         const orderData = props.ordersDataProp
 
         const currentOrderData = {
-            // userID: JSON.parse(localStorage.users)[0].userDetails.id,
             userID: ACTIVE_UID,
             orders: {
                 product_id: currentSelectedProduct.product_id,

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorModalBox from "../components/ErrorModalBox";
+import { getLocalStorageData } from "../components/HelperFunction";
 
 function LoginPage() {
   const navigate = useNavigate();
 
-  let JSON_DATA = JSON.parse(localStorage?.getItem("users"));
+  let JSON_DATA = getLocalStorageData()
 
   const [loginDetails, setLoginDetails] = useState({
     username: "",

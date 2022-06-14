@@ -2,7 +2,25 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 
-const JSON_DATA = JSON.parse(localStorage?.users)
+const JSON_DATA = getLocalStorageData()
+
+
+export function getLocalStorageData() {
+  if (localStorage.users === undefined) {
+    return null
+  } else {
+    return JSON.parse(localStorage?.users)
+  }
+}
+
+export function getActiveUserID() {
+  if (localStorage.activeUser === undefined) {
+    return null
+  } else {
+    return localStorage.activeUser
+  }
+}
+
 // const JSON_DATA = [
 //   {
 //     "userDetails": {
@@ -23,21 +41,11 @@ export function ValidateEmail(email) {
   );
 }
 
-// export function getActiveUserName() {
-
-//   const currentActiveUser = JSON_DATA.filter((item) => {
-//     if (item.userDetails.id === localStorage.activeUser) {
-//       console.log("helo here");
-//       return item
-//     }
-//   })
-//   return currentActiveUser
-// }
 
 export function getActiveUserDetails() {
 
-  const currentActiveUser = JSON_DATA.filter((item) => {
-    if (item.userDetails.id === localStorage?.activeUser) {
+  const currentActiveUser = JSON_DATA?.filter((item) => {
+    if (item.userDetails.id === getActiveUserID()) {
       return item
     }
   })
@@ -50,26 +58,38 @@ export function getActiveUserDetails() {
 
 export function getActiveUserProductDetails() {
 
-  const currentActiveUser = JSON_DATA.filter((item) => {
-    if (item.userDetails.id === localStorage?.activeUser) {
+  const currentActiveUser = JSON_DATA?.filter((item) => {
+    if (item.userDetails.id === getActiveUserID()) {
       return item
     }
   })
 
-  let obj = currentActiveUser[0]?.productDetails
-  return obj
+
+  if (currentActiveUser !== undefined) {
+
+    let obj = currentActiveUser[0]?.productDetails
+    return obj
+  } else {
+    return []
+  }
 
 }
 export function getActiveUserCartDetails() {
 
-  const currentActiveUser = JSON_DATA.filter((item) => {
-    if (item.userDetails.id === localStorage?.activeUser) {
+  const currentActiveUser = JSON_DATA?.filter((item) => {
+    if (item.userDetails.id === getActiveUserID()) {
       return item
     }
   })
 
-  let obj = currentActiveUser[0]?.cartDetails
-  return obj
+  if (currentActiveUser !== undefined) {
+
+    let obj = currentActiveUser[0]?.cartDetails
+    return obj
+  } else {
+    return []
+  }
+
 
 }
 

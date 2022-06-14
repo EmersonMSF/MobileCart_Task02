@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorModalBox from "../components/ErrorModalBox";
 import { ValidateEmail } from "../components/HelperFunction";
+import { getLocalStorageData } from "../components/HelperFunction";
 
 export default function CreateAccount() {
   const navigate = useNavigate();
   const roleList = ["Admin", "User"];
 
-  let JSON_DATA = JSON.parse(localStorage?.getItem("users"));
+  let JSON_DATA = getLocalStorageData()
 
   const [userDetails, setUserDetails] = useState({
     // id: JSON_DATA?.length > 0 ? JSON_DATA?.length : 0,
@@ -93,13 +94,6 @@ export default function CreateAccount() {
 
     ShowErrorMessage("Login successful");
   };
-
-  // useEffect(() => {
-  //   if (!localStorage?.myList === undefined) {
-  //     console.log("calling first useEffect");
-  //     setLocalStorageValues(JSON.parse(localStorage?.myList));
-  //   }
-  // }, []);
 
   return (
     <div className="login_container registration_container">

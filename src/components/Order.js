@@ -4,13 +4,15 @@ import { deleteOrderData } from "../redux/Actions";
 import Menu from "./Menu";
 import { ToastMessage } from "./ToastMessage";
 import { orderProductData } from "../redux/Actions";
+import { getLocalStorageData, getActiveUserID } from "./HelperFunction";
+
 function Order(props) {
 
 
     // console.log("props.ordersDataProp", props.ordersDataProp);
 
-    const ACTIVE_UID = localStorage.activeUser
-    const JSON_DATA = JSON.parse(localStorage.users)
+    const ACTIVE_UID = getActiveUserID()
+    const JSON_DATA = getLocalStorageData()
 
     const currentOrderData = props.ordersDataProp
     const placeOrderHandler = (order_id) => {

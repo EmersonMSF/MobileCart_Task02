@@ -5,6 +5,7 @@ import DeleteProduct from "./DeleteProduct"
 import { storeProductData, deleteProductData } from "../redux/Actions"
 import { connect } from "react-redux"
 import Menu from "./Menu"
+import { getLocalStorageData, getActiveUserID } from "./HelperFunction"
 
 function Products(props) {
 
@@ -12,8 +13,8 @@ function Products(props) {
 
     // const productsData = props.productsDataProp
 
-    const ACTIVE_UID = localStorage.activeUser
-    const JSON_DATA = JSON.parse(localStorage.users)
+    const ACTIVE_UID = getActiveUserID()
+    const JSON_DATA = getLocalStorageData()
 
 
     const [isAddToCartOpen, setAddToCardOpen] = useState(false)

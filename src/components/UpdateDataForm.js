@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { ValidateEmail } from "../components/HelperFunction";
 import ErrorModalBox from "../components/ErrorModalBox";
+import { getLocalStorageData } from "../components/HelperFunction";
 
 export default function UpdateDataForm(props) {
   const roleList = ["admin", "user"];
-  const JSON_DATA = JSON.parse(localStorage["users"]);
 
   const [userDetails, setUserDetails] = useState({
     id: null,
@@ -48,7 +48,7 @@ export default function UpdateDataForm(props) {
   }
 
   const updateData = () => {
-    let usersData = JSON.parse(localStorage.getItem("users"));
+    let usersData = getLocalStorageData()
 
     console.log(usersData);
 
