@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Logout from "../Logout";
+import Logout from "./Logout";
 
 export default function Menu(props) {
     const [isLogoutFormOpen, setlogoutFormOpen] = useState(false);

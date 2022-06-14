@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import "../pages/loginPage.css"
-import "./updateDataForm.css";
 import { ValidateEmail } from "../components/HelperFunction";
 import ErrorModalBox from "../components/ErrorModalBox";
 

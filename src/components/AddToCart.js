@@ -1,8 +1,7 @@
 import { connect } from "react-redux"
-import { useLocation } from "react-router-dom";
-import "./AddToCart.css"
-import { orderProductData, storeProductData } from "../../redux/Actions"
+import { orderProductData, storeProductData } from "../redux/Actions"
 import { useRef, useState } from "react"
+const ACTIVE_UID = localStorage.activeUser
 
 
 function AddToCart(props) {
@@ -12,8 +11,9 @@ function AddToCart(props) {
         if (item.product_id == props.product_id) { return item }
     })[0]
 
+    const ACTIVE_UID = localStorage.activeUser
     const JSON_DATA = JSON.parse(localStorage.users)
-    const location = useLocation();
+
 
     const product_quantity = useRef(0)
     const [showRedError, setShowRedError] = useState(false)
@@ -35,7 +35,7 @@ function AddToCart(props) {
 
         const currentOrderData = {
             // userID: JSON.parse(localStorage.users)[0].userDetails.id,
-            userID: location.state.id,
+            userID: ACTIVE_UID,
             orders: {
                 product_id: currentSelectedProduct.product_id,
                 product_name: currentSelectedProduct.product_name,
@@ -50,15 +50,13 @@ function AddToCart(props) {
 
         props.storeOrder(orderData)
 
-
-
-
         // props.decreaseOrderCount(currentOrderData.orders)
         decreaseProductCountBasedOnOrder(currentOrderData.orders)
 
-
         props.closePopupFunc()
-        addOrdersToUserData(currentOrderData.userID)
+        addOrdersToUserData()
+
+        props.ShowToastMessage("Product added in the cart")
     }
 
     const decreaseProductCountBasedOnOrder = (data) => {
@@ -78,19 +76,28 @@ function AddToCart(props) {
 
         props.storeProduct(updateState)
 
+        JSON_DATA.filter((item) => {
+            if (item.userDetails.id === ACTIVE_UID) {
+                item["productDetails"] = updateState
+            }
+        })
+
+        localStorage.setItem("users", JSON.stringify(JSON_DATA));
+
     }
 
-    const addOrdersToUserData = (userID) => {
+    const addOrdersToUserData = () => {
+
 
         JSON_DATA.filter((item) => {
-            if (item.userDetails.id === userID) {
-                // console.log("hi am here", item);
-                item["AddOrders"] = props.ordersDataProp
+            if (item.userDetails.id === ACTIVE_UID) {
+                item["cartDetails"] = props.ordersDataProp
             }
         })
 
         localStorage.setItem("users", JSON.stringify(JSON_DATA));
     }
+
 
     return (
         <div className="login_container registration_container updateform_container">

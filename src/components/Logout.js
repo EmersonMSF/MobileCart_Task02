@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import "./logout.css";
 
 export default function Logout(props) {
   const navigate = useNavigate();

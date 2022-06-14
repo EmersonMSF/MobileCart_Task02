@@ -1,4 +1,3 @@
-import "./toastMessage.css"
 
 export function ToastMessage(props) {
     return (

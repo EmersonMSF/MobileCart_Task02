@@ -13,8 +13,9 @@ html {
 
 :root {
   --primary_color: white;
-  --seconday_color: black;
-  --brand_color: #48b8e7;
+  --seconday_color: #222;
+  --brand_color: #fa7c72;
+  /* --brand_color: #48b8e7; */
 }
 
 body {

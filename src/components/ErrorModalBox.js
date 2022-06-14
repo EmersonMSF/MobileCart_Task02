@@ -1,5 +1,3 @@
-import "./errorModalBox.css";
-
 export default function ErrorModalBox(props) {
   // if (!props.activeStatus) {
   //   clearInterval(props.errorMessageInterval);

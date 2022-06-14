@@ -1,24 +1,35 @@
-import "./order.css"
 import { connect } from "react-redux"
-import order from "../../redux/orderReducer"
-import { deleteOrderData } from "../../redux/Actions";
-import Menu from "../Menu/Menu";
-import { ToastMessage } from "../ToastMessage/ToastMessage";
-import { orderProductData } from "../../redux/Actions";
+import order from "../redux/orderReducer"
+import { deleteOrderData } from "../redux/Actions";
+import Menu from "./Menu";
+import { ToastMessage } from "./ToastMessage";
+import { orderProductData } from "../redux/Actions";
 function Order(props) {
 
+
     // console.log("props.ordersDataProp", props.ordersDataProp);
+
+    const ACTIVE_UID = localStorage.activeUser
+    const JSON_DATA = JSON.parse(localStorage.users)
+
     const currentOrderData = props.ordersDataProp
     const placeOrderHandler = (order_id) => {
 
         const orderData = props.ordersDataProp
-
-
         const trimmedOrderData = orderData.filter((item) => item.order_id !== order_id)
+
+        console.log("trimmedOrderData", trimmedOrderData);
 
         props.storeOrder(trimmedOrderData)
 
-        props.ShowToastMessage("Order placed successfully")
+
+        JSON_DATA.filter((item) => {
+            if (item.userDetails.id === ACTIVE_UID) {
+                item["cartDetails"] = trimmedOrderData
+            }
+        })
+
+        localStorage.setItem("users", JSON.stringify(JSON_DATA));
     }
 
     return <div>
@@ -39,7 +50,7 @@ function Order(props) {
                 {
                     currentOrderData.length > 0 && currentOrderData?.map((item, index) => {
 
-                        console.log("crash here", item.orders);
+                        // console.log("crash here", item.orders);
 
                         return (
 

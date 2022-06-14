@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
-import AddProductForm from "../AddProductForm/AddProductForm"
-import AddToCart from "../AddToCart/AddToCart"
-import DeleteProduct from "../DeleteProduct/DeleteProduct"
-import "./Products.css"
-import { storeProductData, deleteProductData } from "../../redux/Actions"
+import AddProductForm from "./AddProductForm"
+import AddToCart from "./AddToCart"
+import DeleteProduct from "./DeleteProduct"
+import { storeProductData, deleteProductData } from "../redux/Actions"
 import { connect } from "react-redux"
-import Menu from "../Menu/Menu"
+import Menu from "./Menu"
 
 function Products(props) {
 
@@ -13,6 +12,8 @@ function Products(props) {
 
     // const productsData = props.productsDataProp
 
+    const ACTIVE_UID = localStorage.activeUser
+    const JSON_DATA = JSON.parse(localStorage.users)
 
 
     const [isAddToCartOpen, setAddToCardOpen] = useState(false)
@@ -48,36 +49,45 @@ function Products(props) {
 
 
     const deleteProductByID = () => {
-        // selectedProductID 
-
 
         const trimmedProductData = currentProductData.filter((item) => item.product_id !== selectedProductID)
         props.storeProduct(trimmedProductData)
 
-        console.log("props.productsDataProp", trimmedProductData);
+        console.log("trimmedProductData delete", trimmedProductData);
         console.log("props.productsDataProp", props.productsDataProp);
+
+        saveProductDataInLocalStorage(trimmedProductData)
 
     }
 
     const addProductByData = data => {
 
-        // const currentProductData = props.productsDataProp
-        console.log("props.productsDataProp", props.productsDataProp);
-
-        console.log("currentProductData", currentProductData);
         currentProductData.push({
             ...data,
             product_id: "PD" + (new Date().getTime()).toString(36)
         })
-        console.log("props.productsDataProp", props.productsDataProp);
+        saveProductDataInLocalStorage(currentProductData)
     }
 
-    {
-        console.log("props.productsDataProp data", props.productsDataProp);
+    const saveProductDataInLocalStorage = (data) => {
 
-        console.log("currentProductData data", currentProductData);
+        JSON_DATA.filter((item) => {
+            if (item.userDetails.id === ACTIVE_UID) {
+                // console.log("hi am here", item);
+                // item["AddOrders"] = props.ordersDataProp
+                item["productDetails"] = data
+            }
+        })
 
+        localStorage.setItem("users", JSON.stringify(JSON_DATA));
     }
+
+    // {
+    //     console.log("props.productsDataProp data", props.productsDataProp);
+
+    //     console.log("currentProductData data", currentProductData);
+
+    // }
 
     return (
         <>
@@ -159,7 +169,7 @@ function Products(props) {
 
 
 const mapStateToProps = (state) => {
-    console.log('state here', state.product);
+    // console.log('state here', state.product);
     return {
         productsDataProp: state.product
     }

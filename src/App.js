@@ -3,6 +3,7 @@ import "./App.css";
 import CreateAccount from "./pages/CreateAccount";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import global from "./asset/css/global";
 
 function App() {
   return (

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorModalBox from "../components/ErrorModalBox";
-import "./loginPage.css";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -32,6 +31,39 @@ function LoginPage() {
       active: true,
       message: messageContent,
     });
+  }
+
+  function checkCred() {
+    const res = JSON_DATA.filter((item) => {
+      if (item.userDetails.email === loginDetails.username) {
+        // console.log(true);
+
+        if (item.userDetails.password === loginDetails.password) {
+          return true
+        } else {
+          showErrorMessage("Password is wrong!");
+          return false
+        }
+        // localStorage.setItem("activeUser", item.userDetails.id)
+        // navigate("home", {
+        //   state: {
+        //     id: item.userDetails.id,
+        //     name: item.userDetails.username,
+        //     role: item.userDetails.role,
+        //   },
+        // })
+        // : showErrorMessage("Password is wrong!");
+
+      } else {
+        showErrorMessage("Username is wrong!");
+        return false;
+      }
+    });
+
+    console.log("res", res);
+    return res
+
+
   }
 
   // const [errorMessage, setErrorMessage] = useState({});
@@ -84,27 +116,18 @@ function LoginPage() {
               showErrorMessage("Password is short");
               return;
             }
-            console.log("details are empty 2");
 
-            JSON_DATA.filter((item) => {
-              if (item.userDetails.email === loginDetails.username) {
-                console.log(true);
-                item.userDetails.password === loginDetails.password
-                  ? navigate("home", {
-                    state: {
-                      id: item.userDetails.id,
-                      name: item.userDetails.username,
-                      role: item.userDetails.role,
-                    },
-                  })
-                  : showErrorMessage("Username or password is wrong!");
+            let loggedUser = checkCred()
 
-                return;
-              } else {
-                showErrorMessage("Username or password is wrong!");
-                return;
-              }
-            });
+            if (loggedUser.length > 0) {
+              localStorage.setItem("activeUser", loggedUser[0].userDetails.id)
+              navigate("home", {})
+            } else {
+              showErrorMessage("Login failed");
+
+            }
+
+            // checkCred ? console.log("success") : console.log('failed crash');
           }}
         >
           Login Now
@@ -125,7 +148,7 @@ function LoginPage() {
         activeStatus={errorMessage.active}
       />
       {/* <h1>Error message</h1> */}
-    </div>
+    </div >
   );
 }
 

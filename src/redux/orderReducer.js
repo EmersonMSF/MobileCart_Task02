@@ -11,8 +11,8 @@
 //     }
 // ]
 
-
-const initalState = []
+import { getActiveUserCartDetails } from "../components/HelperFunction"
+const initalState = getActiveUserCartDetails()
 
 const order = (state = initalState, action) => {
 

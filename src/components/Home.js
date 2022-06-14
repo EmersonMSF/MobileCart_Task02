@@ -1,10 +1,8 @@
-import Menu from "../Menu/Menu";
+import Menu from "./Menu";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
-import UpdateDataForm from "../UpdateDataForm";
-import "./Home.css"
-import { getUserData } from "../../redux/Actions";
 import { connect } from "react-redux";
+import UpdateDataForm from "./UpdateDataForm";
+import { getActiveUserDetails, getActiveUserProductDetails } from "./HelperFunction";
 
 
 function Home(props) {
@@ -13,13 +11,15 @@ function Home(props) {
     // console.log("usersDataProp", props.usersDataProp);
     let JSON_DATA = props.usersDataProp
 
-    const location = useLocation();
 
     const [isUpdateFormOpen, setUpdateFormOpen] = useState(false);
     const [selectedUserIdForEdit, setSelectedUserIdForEdit] = useState(null);
 
     const filterName = useRef(null);
     const filterRole = useRef(null);
+
+    const activeUserObject = getActiveUserDetails()
+    const activeUserProductData = getActiveUserProductDetails()
 
     function getupdateData(id) {
         return JSON_DATA.filter((item) => {
@@ -30,6 +30,7 @@ function Home(props) {
     const [tableData, setTableData] = useState(JSON_DATA);
 
     useEffect(() => {
+        console.log("activeUserProductData crash", activeUserProductData);
         setTableData(JSON_DATA);
     }, []);
 
@@ -46,8 +47,7 @@ function Home(props) {
         );
     };
     return <div>
-        {/* <Menu title="Welcome, <b>`{location.state.name}` </b>" /> */}
-        <Menu title={"Welcome, " + location.state.name} />
+        <Menu title={"Welcome, " + activeUserObject.username} />
 
         <div className="filter_container">
             <input placeholder="Search by Name" type="text" ref={filterName} />
@@ -84,7 +84,7 @@ function Home(props) {
                 <th>DOB</th>
                 <th>Role</th>
                 {
-                    location.state.role === "admin" ? <th>View/Edit</th> : null
+                    activeUserObject.role === "admin" ? <th>View/Edit</th> : null
                     // <th>{location.state.role}</th>
                 }
             </tr>
@@ -99,7 +99,7 @@ function Home(props) {
                         <td>{item.userDetails.role}</td>
 
                         {
-                            location.state.role === "admin" ? (
+                            activeUserObject.role === "admin" ? (
                                 <td>
                                     <button
                                         className="btn btn1"

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ToastMessage } from "../ToastMessage/ToastMessage";
-import "./AddProductForm.css"
+import { ToastMessage } from "./ToastMessage";
 import { connect } from "react-redux"
-import { addToastMessage } from "../../redux/Actions";
+import { addToastMessage } from "../redux/Actions";
 
 
 export default function AddProductForm(props) {

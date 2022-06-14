@@ -1,18 +1,20 @@
-const initalState = [{
-    "product_name": "Nvidia Graphics Card RTX 3050",
-    "product_type": "Game Zone",
-    "product_price": 31500,
-    "product_quantity": 10,
-    "product_id": "PDl4843qyx"
-},
-{
-    "product_name": "ASUS Gaming Monitor",
-    "product_type": "Monitors",
-    "product_price": 14500,
-    "product_quantity": 20,
-    "product_id": "PDl48448mg"
-}]
-// const initalState = []
+// const initalState = [{
+//     "product_name": "Nvidia Graphics Card RTX 3050",
+//     "product_type": "Game Zone",
+//     "product_price": 31500,
+//     "product_quantity": 10,
+//     "product_id": "PDl4843qyx"
+// },
+// {
+//     "product_name": "ASUS Gaming Monitor",
+//     "product_type": "Monitors",
+//     "product_price": 14500,
+//     "product_quantity": 20,
+//     "product_id": "PDl48448mg"
+// }]
+import { getActiveUserProductDetails } from "../components/HelperFunction";
+
+const initalState = getActiveUserProductDetails()
 
 
 const product = (state = initalState, action) => {

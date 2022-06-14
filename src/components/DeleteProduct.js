@@ -1,5 +1,3 @@
-import "./DeleteProduct.css"
-
 export default function DeleteProduct(props) {
 
 

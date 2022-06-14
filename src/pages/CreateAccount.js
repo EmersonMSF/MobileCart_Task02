@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorModalBox from "../components/ErrorModalBox";
-import "./loginPage.css";
-
 import { ValidateEmail } from "../components/HelperFunction";
 
 export default function CreateAccount() {
@@ -12,7 +10,7 @@ export default function CreateAccount() {
   let JSON_DATA = JSON.parse(localStorage?.getItem("users"));
 
   const [userDetails, setUserDetails] = useState({
-    id: JSON_DATA?.length > 0 ? JSON_DATA?.length : 0,
+    // id: JSON_DATA?.length > 0 ? JSON_DATA?.length : 0,
     username: null,
     dob: null,
     role: "admin",
@@ -46,9 +44,7 @@ export default function CreateAccount() {
   const submitBtn = () => {
     console.log("submit btn");
     // console.log(userDetails);
-
     // setLocalStorageValues((oldArray) => [...oldArray, { userDetails }]);
-
     // if (localStorage.myList === undefined) {
     // console.log("calling useEffect");
 
@@ -84,7 +80,11 @@ export default function CreateAccount() {
     if (JSON_DATA === null) {
       JSON_DATA = [];
     }
-    JSON_DATA.push({ userDetails: userDetails });
+    JSON_DATA.push({
+      userDetails: { ...userDetails, id: "UID" + (new Date().getTime()).toString(36) },
+      productDetails: [],
+      cartDetails: []
+    });
 
     console.log(JSON_DATA);
 

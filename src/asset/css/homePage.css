@@ -17,6 +17,7 @@
     margin-top: 30px;
 }
 .sidebar_container ul li{
+    transition: all .5s ease;   
     cursor: pointer;
 }
 .sidebar_container ul li.active{
